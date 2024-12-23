@@ -19,7 +19,7 @@ jobs:
       - image: cimg/base:current
     steps:
       - run:
-          shell: /bin/sh +eo pipefail
+          shell: /bin/sh +e pipefail
           name: This will fail
           command: |
             echo "This job is supposed to fail."
