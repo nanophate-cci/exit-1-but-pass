@@ -13,6 +13,17 @@ jobs:
             echo "This job is supposed to pass....."
             exit 0
 
+  build2:
+    docker:
+      - image: cimg/base:current
+    steps:
+      - checkout
+      - run:
+          name: This will pass
+          command: |
+            echo "This job is supposed to pass....."
+            exit 0            
+
   # A job that will fail
   fail_job:
     docker:
@@ -47,6 +58,13 @@ workflows:
   build_and_deploy:
     jobs:
       - build
+      - build2:
+          filters:
+            tags:
+              only:
+              - /.*/
+            branches:
+              ignore: /.*/
       - fail_job
       - deploy:
           requires:
